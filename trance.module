@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Contains trance.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function trance_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the trance module.
+    case 'help.page.trance':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Translatable Content Entity') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function trance_theme() {
+  return [
+    'trance' => [
+      'render element' => 'elements',
+      'file' => 'trance.page.inc',
+      'template' => 'trance',
+      'file' => 'trance.page.inc',
+    ],
+    'trance_content_add_list' => [
+      'render element' => 'content',
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'trance-content-add-list',
+      'file' => 'trance.page.inc',
+    ],
+  ];
+}

@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\trance\Form\TranceTypeForm.
+ */
+
+namespace Drupal\trance\Form;
+
+use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Class TranceTypeForm.
+ *
+ * @package Drupal\trance\Form
+ */
+class TranceTypeForm extends EntityForm {
+  /**
+   * {@inheritdoc}
+   */
+  public function form(array $form, FormStateInterface $form_state) {
+    $form = parent::form($form, $form_state);
+
+    $trance_type = $this->entity;
+    $entity_type_label = $trance_type->getEntityType()->getLabel();
+
+    $form['label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Label'),
+      '#maxlength' => 255,
+      '#default_value' => $trance_type->label(),
+      '#description' => $this->t('Label for the @type.', [
+        '@type' => $entity_type_label,
+      ]),
+      '#required' => TRUE,
+    ];
+
+    $form['id'] = [
+      '#type' => 'machine_name',
+      '#default_value' => $trance_type->id(),
+      '#machine_name' => [
+        // @todo fix this and remove validateForm.
+    //   'exists' => '\Drupal\trance\TranceType::load',
+      ],
+      '#disabled' => !$trance_type->isNew(),
+    ];
+
+    $form['description'] = array(
+      '#title' => t('Description'),
+      '#type' => 'textarea',
+      '#default_value' => $trance_type->getDescription(),
+      '#description' => t('This text will be displayed on the <em>Add cms content item</em> page.'),
+    );
+
+    $form['help']  = array(
+      '#type' => 'textarea',
+      '#title' => t('Explanation or submission guidelines'),
+      '#default_value' => $trance_type->getHelp(),
+      '#description' => t('This text will be displayed at the top of the page when creating or editing a CMS content item of this type.'),
+    );
+
+    $form['revision'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Create new revision'),
+      '#default_value' => $trance_type->shouldCreateNewRevision(),
+      '#description' => t('Create a new revision by default for this component type.'),
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $bundles = \Drupal::entityManager()->getBundleInfo($this->entity->getEntityType()->getBundleOf());
+    if (in_array($form_state->getValue('id'), array_keys($bundles))) {
+      $form_state->setErrorByName('id', $this->t('The type already exists'));
+    }
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function save(array $form, FormStateInterface $form_state) {
+    $trance_type = $this->entity;
+    $status = $trance_type->save();
+
+    $entity_type_label = $trance_type->getEntityType()->getLabel();
+
+    switch ($status) {
+      case SAVED_NEW:
+        drupal_set_message($this->t('Created the %label @type.', [
+          '%label' => $trance_type->label(),
+          '@type' => $entity_type_label,
+        ]));
+        break;
+
+      default:
+        drupal_set_message($this->t('Saved the %label @type.', [
+          '%label' => $trance_type->label(),
+          '@type' => $entity_type_label,
+        ]));
+    }
+
+    $this->entityManager->clearCachedFieldDefinitions();
+    $form_state->setRedirectUrl($trance_type->urlInfo('collection'));
+  }
+
+}
