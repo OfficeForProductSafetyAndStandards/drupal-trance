@@ -75,7 +75,7 @@ class TranceTypeForm extends EntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $bundles = \Drupal::entityManager()->getBundleInfo($this->entity->getEntityType()->getBundleOf());
-    if (in_array($form_state->getValue('id'), array_keys($bundles))) {
+    if ($this->entity->isNew() && in_array($form_state->getValue('id'), array_keys($bundles))) {
       $form_state->setErrorByName('id', $this->t('The type already exists'));
     }
     parent::validateForm($form, $form_state);

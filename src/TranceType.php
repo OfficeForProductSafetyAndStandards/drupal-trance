@@ -44,6 +44,13 @@ abstract class TranceType extends ConfigEntityBundleBase implements TranceTypeIn
   protected $help;
 
   /**
+   * Revision number.
+   *
+   * @var int
+   */
+  protected $revision;
+
+  /**
    * {@inheritdoc}
    */
   public function getHelp() {
