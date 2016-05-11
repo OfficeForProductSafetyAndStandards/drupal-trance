@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\trance\Controller\TranceAddController.
- */
-
 namespace Drupal\trance\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -13,7 +8,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * Class TranceAddController.

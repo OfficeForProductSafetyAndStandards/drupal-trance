@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Tests\TranceExampleCreationTest.
- */
-
 namespace Drupal\trance_example\Tests;
 
 use Drupal\trance\Tests\TranceCreationTest;

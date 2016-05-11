@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Form\TranceExampleRevisionRevertForm.
- */
-
 namespace Drupal\trance_example\Form;
 
 use Drupal\Core\Form\FormStateInterface;

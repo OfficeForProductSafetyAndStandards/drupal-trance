@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceStorage.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Component\Render\FormattableMarkup;

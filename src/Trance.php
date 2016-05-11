@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Trance.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Entity\EntityStorageInterface;

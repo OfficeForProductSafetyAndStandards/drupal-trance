@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Entity\TranceExample.
- */
-
 namespace Drupal\trance_example\Entity;
 
 use Drupal\trance\Trance;

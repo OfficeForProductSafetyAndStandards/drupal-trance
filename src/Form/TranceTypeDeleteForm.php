@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceTypeDeleteForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

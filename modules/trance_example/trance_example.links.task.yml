@@ -36,5 +36,3 @@ entity.trance_example_type.collection:
   title: 'List'
   route_name: entity.trance_example_type.collection
   base_route: entity.trance_example_type.collection
-
-

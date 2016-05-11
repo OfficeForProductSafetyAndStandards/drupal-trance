@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Tests\TranceOwnerTest.
- */
-
 namespace Drupal\trance\Tests;
 
 use Drupal\system\Tests\Entity\EntityUnitTestBase;

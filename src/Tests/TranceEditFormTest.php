@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Tests\TranceEditFormTest.
- */
-
 namespace Drupal\trance\Tests;
 
 

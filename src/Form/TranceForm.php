@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,14 +21,14 @@ class TranceForm extends ContentEntityForm {
    *
    * @var \string
    */
-  static $entityType = 'trance';
+  public static $entityType = 'trance';
 
   /**
    * The bundle entity type.
    *
    * @var \string
    */
-  static $bundleEntityType = 'trance_type';
+  public static $bundleEntityType = 'trance_type';
 
   /**
    * The entity storage.
@@ -90,8 +85,8 @@ class TranceForm extends ContentEntityForm {
     $entity_manager = $container->get('entity.manager');
     return new static(
       $entity_manager,
-      $entity_manager->getStorage($entity_type ?? self::$entityType),
-      $entity_manager->getStorage($entity_bundle_type ?? self::$bundleEntityType),
+      $entity_manager->getStorage($entity_type ? $entity_type : self::$entityType),
+      $entity_manager->getStorage($entity_bundle_type ? $entity_bundle_type : self::$bundleEntityType),
       $container->get('language_manager')
     );
   }

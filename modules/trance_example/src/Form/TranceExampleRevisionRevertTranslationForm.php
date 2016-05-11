@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Form\TranceExampleRevisionRevertTranslationForm.
- */
-
 namespace Drupal\trance_example\Form;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -13,7 +8,7 @@ use Drupal\trance\Form\TranceRevisionRevertTranslationForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a TranceExample revision for a single translation.
+ * A form for reverting a TranceExample revision for a single translation.
  */
 class TranceExampleRevisionRevertTranslationForm extends TranceRevisionRevertTranslationForm {
 

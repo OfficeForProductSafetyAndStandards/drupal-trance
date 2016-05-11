@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceDeleteForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Entity\ContentEntityDeleteForm;

@@ -1,17 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\trance_example\Controller\TranceExampleAddController.
- */
-
 namespace Drupal\trance_example\Controller;
 
 use Drupal\Core\Entity\EntityInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\trance\Controller\TranceAddController;
-
 
 /**
  * Class TranceExampleAddController.
@@ -33,7 +27,7 @@ class TranceExampleAddController extends TranceAddController {
   }
 
   /**
-   * Presents the creation form for trance_example entities of given bundle/type.
+   * Presents the creation form for trance_example entities of given bundle.
    *
    * @param EntityInterface $trance_example_type
    *   The custom bundle to add.

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Tests\TranceTestBase.
- */
-
 namespace Drupal\trance\Tests;
 
 use Drupal\Core\Session\AccountInterface;

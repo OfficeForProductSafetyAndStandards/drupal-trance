@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceTypeInterface.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -37,4 +32,5 @@ interface TranceTypeInterface extends ConfigEntityInterface {
    *   TRUE if a new revision should be created by default.
    */
   public function shouldCreateNewRevision();
+
 }

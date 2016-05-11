@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceRevisionRevertForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Datetime\DateFormatter;

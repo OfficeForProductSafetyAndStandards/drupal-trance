@@ -1,15 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceStorageSchema.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorageSchema;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Database\Connection;
 
 /**
  * Extends the trance schema handler.
@@ -27,7 +24,7 @@ class TranceStorageSchema extends SqlContentEntityStorageSchema {
   /**
    * {@inheritdoc}
    */
-  public function __construct(\Drupal\Core\Entity\EntityManagerInterface $entity_manager, \Drupal\Core\Entity\ContentEntityTypeInterface $entity_type, \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage, \Drupal\Core\Database\Connection $database) {
+  public function __construct(EntityManagerInterface $entity_manager, ContentEntityTypeInterface $entity_type, SqlContentEntityStorage $storage, Connection $database) {
     parent::__construct($entity_manager, $entity_type, $storage, $database);
     $this->entityTypeId = $entity_type->id();
   }

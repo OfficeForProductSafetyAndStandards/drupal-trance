@@ -11,4 +11,3 @@ entity.trance_example_type.collection:
   route_name: entity.trance_example_type.collection
   description: 'Manage trance_example content entity bundles'
   parent: system.admin_structure
-

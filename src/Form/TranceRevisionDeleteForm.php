@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceRevisionDeleteForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Database\Connection;

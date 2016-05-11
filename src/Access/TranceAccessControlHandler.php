@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Access\TranceAccessControlHandler.
- */
-
 namespace Drupal\trance\Access;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;

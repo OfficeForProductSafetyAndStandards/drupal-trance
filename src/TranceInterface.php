@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceInterface.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -104,6 +99,5 @@ interface TranceInterface extends EntityInterface, ContentEntityInterface, Entit
    *   The class instance that this method is called on.
    */
   public function setRevisionLog($revision_log);
-
 
 }

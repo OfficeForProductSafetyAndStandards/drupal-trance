@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceTypeListBuilder.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

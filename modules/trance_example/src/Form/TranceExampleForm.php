@@ -1,25 +1,19 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Form\TranceExampleForm.
- */
-
 namespace Drupal\trance_example\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\trance\Form\TranceForm;
 
-
 /**
  * Form controller for the trance_example edit forms.
  */
 class TranceExampleForm extends TranceForm {
 
-  static $entityType = 'trance_example';
+  public static $entityType = 'trance_example';
 
-  static $bundleEntityType = 'trance_example_type';
+  public static $bundleEntityType = 'trance_example_type';
 
   /**
    * {@inheritdoc}

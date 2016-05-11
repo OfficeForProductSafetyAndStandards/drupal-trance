@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Tests\TranceAccessTest.
- */
-
 namespace Drupal\trance\Tests;
 
 use Drupal\user\RoleInterface;

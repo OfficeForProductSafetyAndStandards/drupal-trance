@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Controller\TranceController.
- */
-
 namespace Drupal\trance\Controller;
 
 use Drupal\trance\TranceInterface;
@@ -18,7 +13,6 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\trance\TranceTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 
 /**
  * Returns responses for Trance routes.

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\TranceType.
- */
-
 namespace Drupal\trance;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;

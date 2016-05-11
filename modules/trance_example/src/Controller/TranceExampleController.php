@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance_example\Controller\TranceExampleController.
- */
-
 namespace Drupal\trance_example\Controller;
 
 use Drupal\trance\Controller\TranceController;
 use Drupal\trance\TranceInterface;
+use Drupal\trance\TranceTypeInterface;
 
 /**
  * Returns responses for TranceExample routes.
@@ -24,7 +20,7 @@ class TranceExampleController extends TranceController {
    * @return array
    *   A trance_example submission form.
    */
-  public function add(\Drupal\trance\TranceTypeInterface $trance_example_type) {
+  public function add(TranceTypeInterface $trance_example_type) {
     return parent::add($trance_example_type);
 
   }

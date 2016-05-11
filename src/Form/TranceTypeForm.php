@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\trance\Form\TranceTypeForm.
- */
-
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Entity\EntityForm;
