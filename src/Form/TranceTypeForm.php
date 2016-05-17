@@ -35,8 +35,7 @@ class TranceTypeForm extends EntityForm {
       '#type' => 'machine_name',
       '#default_value' => $trance_type->id(),
       '#machine_name' => [
-        // @todo fix this and remove validateForm.
-    //   'exists' => '\Drupal\trance\TranceType::load',
+        'exists' => $trance_type->getEntityType()->getClass() . '::load',
       ],
       '#disabled' => !$trance_type->isNew(),
     ];
@@ -63,17 +62,6 @@ class TranceTypeForm extends EntityForm {
     ];
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    $bundles = \Drupal::entityManager()->getBundleInfo($this->entity->getEntityType()->getBundleOf());
-    if ($this->entity->isNew() && in_array($form_state->getValue('id'), array_keys($bundles))) {
-      $form_state->setErrorByName('id', $this->t('The type already exists'));
-    }
-    parent::validateForm($form, $form_state);
   }
 
   /**
