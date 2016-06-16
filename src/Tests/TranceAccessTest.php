@@ -10,6 +10,7 @@ use Drupal\user\RoleInterface;
  * @group trance
  */
 abstract class TranceAccessTest extends TranceTestBase {
+
   /**
    * {@inheritdoc}
    */

@@ -26,6 +26,7 @@ class TranceTypeListBuilder extends ConfigEntityListBuilder {
     }
     return $query->execute();
   }
+
   /**
    * {@inheritdoc}
    */

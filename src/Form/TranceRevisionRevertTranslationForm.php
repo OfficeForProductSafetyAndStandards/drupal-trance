@@ -43,7 +43,6 @@ class TranceRevisionRevertTranslationForm extends TranceRevisionRevertForm {
     $this->languageManager = $language_manager;
   }
 
-
   /**
    * {@inheritdoc}
    */

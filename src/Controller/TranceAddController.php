@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @package Drupal\trance\Controller
  */
 class TranceAddController extends ControllerBase {
+
   /**
    * Constructor.
    */
@@ -34,6 +35,7 @@ class TranceAddController extends ControllerBase {
       $entity_manager->getStorage('trance_type')
     );
   }
+
   /**
    * Displays add links for available bundles/types for entity trance .
    *

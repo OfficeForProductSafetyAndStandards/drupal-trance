@@ -30,6 +30,7 @@ class TranceAccessControlHandler extends EntityAccessControlHandler {
     $result = parent::access($entity, $operation, $account, TRUE)->cachePerPermissions();
     return $return_as_object ? $result : $result->isAllowed();
   }
+
   /**
    * {@inheritdoc}
    */

@@ -26,8 +26,18 @@ abstract class TranceTestBase extends WebTestBase {
    */
   protected $accessHandler;
 
+  /**
+   * Entity type id.
+   *
+   * @var string
+   */
   protected $entityTypeId;
 
+  /**
+   * Bundle entity type id.
+   *
+   * @var string
+   */
   protected $bundleEntityTypeId;
 
   /**
@@ -116,13 +126,15 @@ abstract class TranceTestBase extends WebTestBase {
    *   (optional) An associative array of settings for the trance, as used in
    *   entity_create(). Override the defaults by specifying the key and value
    *   in the array, for example.
+   *
    * @code
    *     $this->drupalCreateTrance([
    *       'name' => t('Hello, world!'),
    *       'type' => 'trance_test',
    *     ]);
    * @endcode
-   *   The following defaults are provided:
+   *
+   *  The following defaults are provided:
    *   - title: Random string.
    *   - type: 'trance_test'.
    *   - uid: The currently logged in user, or anonymous.

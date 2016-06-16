@@ -14,7 +14,6 @@ class TranceTypeTest extends TranceTestBase {
    */
   public static $modules = ['field_ui'];
 
-
   /**
    * Tests creating a content type programmatically and via a form.
    */

@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\trance\Form
  */
 class TranceTypeForm extends EntityForm {
+
   /**
    * {@inheritdoc}
    */

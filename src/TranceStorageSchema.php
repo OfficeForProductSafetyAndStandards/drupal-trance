@@ -21,7 +21,6 @@ class TranceStorageSchema extends SqlContentEntityStorageSchema {
    */
   protected $entityTypeId;
 
-
   /**
    * {@inheritdoc}
    */
