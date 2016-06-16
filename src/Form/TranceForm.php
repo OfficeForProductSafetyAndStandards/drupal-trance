@@ -58,7 +58,6 @@ class TranceForm extends ContentEntityForm {
    */
   protected $entity;
 
-
   /**
    * Constructs a TranceForm object.
    *

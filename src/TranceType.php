@@ -3,7 +3,6 @@
 namespace Drupal\trance;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
-use Drupal\trance\TranceTypeInterface;
 
 /**
  * Defines the trance type entity.
