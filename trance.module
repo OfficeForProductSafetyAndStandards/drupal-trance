@@ -44,3 +44,22 @@ function trance_theme() {
     ],
   ];
 }
+
+/**
+ * Implements hook_entity_type_alter().
+ *
+ * @param \Drupal\Core\Entity\EntityTypeInterface[] $entity_types
+ */
+function trance_entity_type_alter(array &$entity_types) {
+  if (\Drupal::moduleHandler()->moduleExists('multiversion')) {
+    /** @var \Drupal\multiversion\MultiversionManagerInterface $manager */
+    $manager = \Drupal::service('multiversion.manager');
+    foreach ($entity_types as $entity_type) {
+      if ($manager->isEnabledEntityType($entity_type)) {
+        if ($entity_type->getHandlerClass('storage') == "Drupal\\trance\\TranceStorage") {
+          $entity_type->setHandlerClass('storage', "Drupal\\trance\\TranceMultiversionStorage");
+        }
+      }
+    }
+  }
+}
