@@ -42,24 +42,24 @@ class TranceTypeForm extends EntityForm {
     ];
 
     $form['description'] = array(
-      '#title' => t('Description'),
+      '#title' => $this->t('Description'),
       '#type' => 'textarea',
       '#default_value' => $trance_type->getDescription(),
-      '#description' => t('This text will be displayed on the <em>Add cms content item</em> page.'),
+      '#description' => $this->t('This text will be displayed on the <em>Add cms content item</em> page.'),
     );
 
     $form['help']  = array(
       '#type' => 'textarea',
-      '#title' => t('Explanation or submission guidelines'),
+      '#title' => $this->t('Explanation or submission guidelines'),
       '#default_value' => $trance_type->getHelp(),
-      '#description' => t('This text will be displayed at the top of the page when creating or editing a CMS content item of this type.'),
+      '#description' => $this->t('This text will be displayed at the top of the page when creating or editing a CMS content item of this type.'),
     );
 
     $form['revision'] = [
       '#type' => 'checkbox',
-      '#title' => t('Create new revision'),
+      '#title' => $this->t('Create new revision'),
       '#default_value' => $trance_type->shouldCreateNewRevision(),
-      '#description' => t('Create a new revision by default for this component type.'),
+      '#description' => $this->t('Create a new revision by default for this component type.'),
     ];
 
     return $form;

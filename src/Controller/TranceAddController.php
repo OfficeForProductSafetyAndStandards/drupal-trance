@@ -92,7 +92,7 @@ class TranceAddController extends ControllerBase {
    *   The page title.
    */
   public function getAddFormTitle(EntityInterface $trance_type) {
-    return t('Create @label of @type', [
+    return $this->t('Create @label of @type', [
       '@label' => $trance_type->label(),
       '@type' => $this->storage->getEntityType()->id(),
     ]);
