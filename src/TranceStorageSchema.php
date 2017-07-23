@@ -15,28 +15,13 @@ use Drupal\Core\Database\Connection;
 class TranceStorageSchema extends SqlContentEntityStorageSchema {
 
   /**
-   * The id of  entity type this schema builder is responsible for.
-   *
-   * @var string
-   */
-  protected $entityTypeId;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(EntityManagerInterface $entity_manager, ContentEntityTypeInterface $entity_type, SqlContentEntityStorage $storage, Connection $database) {
-    parent::__construct($entity_manager, $entity_type, $storage, $database);
-    $this->entityTypeId = $entity_type->id();
-  }
-
-  /**
    * {@inheritdoc}
    */
   protected function getEntitySchema(ContentEntityTypeInterface $entity_type, $reset = FALSE) {
     $schema = parent::getEntitySchema($entity_type, $reset = FALSE);
 
-    $schema[$this->entityTypeId . '_field_data']['indexes'] += [
-      $this->entityTypeId . '_name' => ['type', 'langcode', 'name'],
+    $schema[$this->entityType->getDataTable()]['indexes'] += [
+      $this->entityType->id() . '_name' => ['type', 'langcode', 'name'],
     ];
 
     return $schema;
@@ -49,7 +34,7 @@ class TranceStorageSchema extends SqlContentEntityStorageSchema {
     $schema = parent::getSharedTableFieldSchema($storage_definition, $table_name, $column_mapping);
     $field_name = $storage_definition->getName();
 
-    if ($table_name == $this->entityTypeId . '_field_data') {
+    if ($table_name == $this->entityType->getDataTable()) {
 
       switch ($field_name) {
         case 'status':
