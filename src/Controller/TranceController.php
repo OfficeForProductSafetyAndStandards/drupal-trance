@@ -11,6 +11,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\trance\TranceTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -222,10 +223,10 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
             $entity_type => $trance->id(),
             $entity_type . '_revision' => $vid,
           ]);
-          $link = $this->l($date, $url);
+          $link = Link::fromTextAndUrl($date, $url)->toString();
         }
         else {
-          $link = $trance->link($date);
+          $link = $trance->toLink($date)->toString();
         }
 
         $row = [];

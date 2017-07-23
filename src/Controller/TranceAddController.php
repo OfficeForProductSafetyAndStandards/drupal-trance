@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -59,7 +60,7 @@ class TranceAddController extends ControllerBase {
       return [
         '#markup' => $this->t('You have not created any %bundle types yet. @link to add a new type.', [
           '%bundle' => $entity_type,
-          '@link' => $this->l($this->t('Go to the type creation page'), Url::fromRoute('entity.' . $bundle_entity_type . '.add_form')),
+          '@link' => Link::fromTextAndUrl($this->t('Go to the type creation page'), Url::fromRoute('entity.' . $bundle_entity_type . '.add_form'))->toString(),
         ]),
       ];
     }

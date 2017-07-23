@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
+use \Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of trance entities.
@@ -29,11 +30,10 @@ class TranceListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\trance\Trance */
     $entity_type = $entity->getEntityType()->id();
     $row['id'] = $entity->id();
     $row['type'] = $entity->getType();
-    $row['name'] = $this->l(
+    $row['name'] = Link::fromTextAndUrl(
       $entity->label(),
       new Url(
         'entity.' . $entity_type . '.edit_form', [
