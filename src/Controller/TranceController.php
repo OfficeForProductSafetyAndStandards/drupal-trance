@@ -90,15 +90,15 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
     $build = [
       '#theme' => 'trance_content_add_list',
       '#cache' => [
-        'tags' => $this->entityManager()->getDefinition($bundle_entity_type)->getListCacheTags(),
+        'tags' => $this->entityTypeManager()->getDefinition($bundle_entity_type)->getListCacheTags(),
       ],
     ];
 
     $content = [];
 
     // Only use trance types the user has access to.
-    foreach ($this->entityManager()->getStorage($bundle_entity_type)->loadMultiple() as $type) {
-      $access = $this->entityManager()->getAccessControlHandler($entity_type)->createAccess($type->id(), NULL, [], TRUE);
+    foreach ($this->entityTypeManager()->getStorage($bundle_entity_type)->loadMultiple() as $type) {
+      $access = $this->entityTypeManager()->getAccessControlHandler($entity_type)->createAccess($type->id(), NULL, [], TRUE);
       if ($access->isAllowed()) {
         $content[$type->id()] = $type;
       }
@@ -127,7 +127,7 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
    */
   public function add(TranceTypeInterface $trance_type) {
     $entity_type = $trance_type->id();
-    $trance = $this->entityManager()->getStorage($entity_type)->create([
+    $trance = $this->entityTypeManager()->getStorage($entity_type)->create([
       'type' => $trance_type->id(),
     ]);
 
@@ -147,7 +147,7 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
    */
   public function revisionShow($trance_revision) {
     $entity_type = $trance_revision->id();
-    $trance = $this->entityManager()->getStorage($entity_type)->loadRevision($trance_revision);
+    $trance = $this->entityTypeManager()->getStorage($entity_type)->loadRevision($trance_revision);
     $trance_view_controller = new TranceViewController($this->entityManager, $this->renderer);
     $page = $trance_view_controller->view($trance);
     unset($page['trances'][$trance->id()]['#cache']);
@@ -165,10 +165,10 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
    */
   public function revisionPageTitle($trance_revision) {
     $entity_type = $trance_revision->id();
-    $trance = $this->entityManager()->getStorage($entity_type)->loadRevision($trance_revision);
+    $trance = $this->entityTypeManager()->getStorage($entity_type)->loadRevision($trance_revision);
     return $this->t('Revision of %title from %date', [
       '%title' => $trance->label(),
-      '%date' => format_date($trance->getRevisionCreationTime()),
+      '%date' => $this->dateFormatter->format($trance->getRevisionCreationTime()),
     ]);
   }
 
@@ -188,7 +188,7 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
     $langname = $this->languageManager()->getLanguageName($langcode);
     $languages = $trance->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $trance_storage = $this->entityManager()->getStorage($entity_type);
+    $trance_storage = $this->entityTypeManager()->getStorage($entity_type);
 
     $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', [
       '@langname' => $langname,

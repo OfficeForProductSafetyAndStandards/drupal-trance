@@ -2,10 +2,13 @@
 
 namespace Drupal\trance\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
@@ -52,6 +55,13 @@ class TranceForm extends ContentEntityForm {
   protected $languageManager;
 
   /**
+   * The datetime service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $dateTime;
+
+  /**
    * The content entity.
    *
    * @var \Drupal\trance\TranceInterface
@@ -61,32 +71,36 @@ class TranceForm extends ContentEntityForm {
   /**
    * Constructs a TranceForm object.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository service.
    * @param \Drupal\Core\Entity\EntityStorageInterface $trance_storage
    *   The trance storage.
    * @param \Drupal\Core\Entity\EntityStorageInterface $trance_type_storage
    *   The trance type storage.
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager.
+   * @param \Drupal\Component\Datetime\TimeInterface $datetime
+   *   The datetime service.
    */
-  public function __construct(EntityManagerInterface $entity_manager, EntityStorageInterface $trance_storage, EntityStorageInterface $trance_type_storage, LanguageManagerInterface $language_manager) {
-    parent::__construct($entity_manager);
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityStorageInterface $trance_storage, EntityStorageInterface $trance_type_storage, LanguageManagerInterface $language_manager, TimeInterface $datetime) {
+    parent::__construct($entity_repository);
     $this->entityStorage = $trance_storage;
     $this->entityTypeStorage = $trance_type_storage;
     $this->languageManager = $language_manager;
+    $this->dateTime = $datetime;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, $entity_type = '', $entity_bundle_type = '') {
-    $entity_manager = $container->get('entity.manager');
+    $entity_type_manager = $container->get('entity_type.manager');
     return new static(
-      $entity_manager,
-      $entity_manager->getStorage($entity_type ? $entity_type : self::$entityType),
-      $entity_manager->getStorage($entity_bundle_type ? $entity_bundle_type : self::$bundleEntityType),
-      $container->get('language_manager')
+      $container->get('entity.repository'),
+      $entity_type_manager->getStorage($entity_type ? $entity_type : self::$entityType),
+      $entity_type_manager->getStorage($entity_bundle_type ? $entity_bundle_type : self::$bundleEntityType),
+      $container->get('language_manager'),
+      $container->get('datetime.time')
     );
   }
 
@@ -165,7 +179,7 @@ class TranceForm extends ContentEntityForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    $this->entity->setRevisionCreationTime(REQUEST_TIME);
+    $this->entity->setRevisionCreationTime($this->dateTime->getRequestTime());
     $this->entity->setRevisionAuthorId(\Drupal::currentUser()->id());
   }
 
@@ -184,15 +198,20 @@ class TranceForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label content entity.', [
-          '%label' => $entity->label(),
-        ]));
+        $this->messenger()->addMessage(
+          $this->t(
+            'Created the %label content entity.', [
+            '%label' => $entity->label(),
+          ])
+        );
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label content entity.', [
-          '%label' => $entity->label(),
-        ]));
+        $this->messenger()->addMessage(
+          $this->t(
+            'Saved the %label content entity.',
+            ['%label' => $entity->label(),])
+        );
     }
     $form_state->setRedirect('entity.' . $entity_type . '.edit_form', [
       $entity_type => $entity->id(),

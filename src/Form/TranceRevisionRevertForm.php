@@ -54,7 +54,7 @@ class TranceRevisionRevertForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager')->getStorage('trance'),
+      $container->get('entity_type.manager')->getStorage('trance'),
       $container->get('date.formatter')
     );
   }
@@ -123,18 +123,22 @@ class TranceRevisionRevertForm extends ConfirmFormBase {
     $this->revision->revision_log = t('Copy of the revision from %date.', ['%date' => $this->dateFormatter->format($original_revision_timestamp)]);
     $this->revision->save();
 
-    $this->logger('content')->notice('@type @bundle: reverted %title revision %revision.', [
-      '@type' => $entity_type,
-      '@bundle' => $trance_bundle,
-      '%title' => $this->revision->label(),
-      '%revision' => $this->revision->getRevisionId(),
-    ]);
-    drupal_set_message(t('@type @bundle %title has been reverted to the revision from %revision-date.', [
-      '@type' => $entity_type,
-      '@bundle' => $trance_bundle,
-      '%title' => $this->revision->label(),
-      '%revision-date' => $this->dateFormatter->format($original_revision_timestamp),
-    ]));
+    $this->logger('content')->notice(
+      '@type @bundle: reverted %title revision %revision.', [
+        '@type' => $entity_type,
+        '@bundle' => $trance_bundle,
+        '%title' => $this->revision->label(),
+        '%revision' => $this->revision->getRevisionId(),
+      ]
+    );
+    $this->messenger()->addMessage(
+      t('@type @bundle %title has been reverted to the revision from %revision-date.', [
+        '@type' => $entity_type,
+        '@bundle' => $trance_bundle,
+        '%title' => $this->revision->label(),
+        '%revision-date' => $this->dateFormatter->format($original_revision_timestamp),
+      ])
+    );
     $form_state->setRedirect('entity.' . $entity_type . '.version_history', [
       $entity_type => $this->revision->id(),
     ]);

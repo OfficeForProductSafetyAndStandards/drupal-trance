@@ -15,10 +15,10 @@ class TranceExampleRevisionDeleteForm extends TranceRevisionDeleteForm {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity.manager');
+    $entity_type_manager = $container->get('entity_type.manager');
     return new static(
-      $entity_manager->getStorage('trance_example'),
-      $entity_manager->getStorage('trance_example_type'),
+      $entity_type_manager->getStorage('trance_example'),
+      $entity_type_manager->getStorage('trance_example_type'),
       $container->get('database')
     );
   }

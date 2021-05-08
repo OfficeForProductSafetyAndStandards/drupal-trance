@@ -76,21 +76,25 @@ class TranceTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label @type.', [
-          '%label' => $trance_type->label(),
-          '@type' => $entity_type_label,
-        ]));
+        $this->messenger()->addMessage(
+          $this->t('Created the %label @type.', [
+            '%label' => $trance_type->label(),
+            '@type' => $entity_type_label,
+          ])
+        );
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label @type.', [
-          '%label' => $trance_type->label(),
-          '@type' => $entity_type_label,
-        ]));
+        $this->messenger()->addMessage(
+          $this->t('Saved the %label @type.', [
+            '%label' => $trance_type->label(),
+            '@type' => $entity_type_label,
+          ])
+        );
     }
 
     $this->entityManager->clearCachedFieldDefinitions();
-    $form_state->setRedirectUrl($trance_type->urlInfo('collection'));
+    $form_state->setRedirectUrl($trance_type->toUrl('collection'));
   }
 
 }

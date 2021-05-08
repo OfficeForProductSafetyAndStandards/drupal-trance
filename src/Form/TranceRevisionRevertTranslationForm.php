@@ -48,7 +48,7 @@ class TranceRevisionRevertTranslationForm extends TranceRevisionRevertForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager')->getStorage('trance'),
+      $container->get('entity_type.manager')->getStorage('trance'),
       $container->get('date.formatter'),
       $container->get('language_manager')
     );

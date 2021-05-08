@@ -4,7 +4,6 @@ namespace Drupal\trance;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 use \Drupal\Core\Link;
 
@@ -14,7 +13,6 @@ use \Drupal\Core\Link;
  * @ingroup trance
  */
 class TranceListBuilder extends EntityListBuilder {
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}

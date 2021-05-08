@@ -18,7 +18,7 @@ class TranceExampleForm extends TranceForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container, $entity_type = '', $entity_bundle_type = '') {
     return parent::create($container, self::$entityType, self::$bundleEntityType);
   }
 

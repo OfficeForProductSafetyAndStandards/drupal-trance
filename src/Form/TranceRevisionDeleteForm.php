@@ -3,6 +3,7 @@
 namespace Drupal\trance\Form;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -43,6 +44,13 @@ class TranceRevisionDeleteForm extends ConfirmFormBase {
   protected $connection;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * Constructs a new TranceRevisionDeleteForm.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $trance_storage
@@ -51,22 +59,26 @@ class TranceRevisionDeleteForm extends ConfirmFormBase {
    *   The trance type storage.
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The date formatter service.
    */
-  public function __construct(EntityStorageInterface $trance_storage, EntityStorageInterface $trance_type_storage, Connection $connection) {
+  public function __construct(EntityStorageInterface $trance_storage, EntityStorageInterface $trance_type_storage, Connection $connection, DateFormatterInterface $date_formatter) {
     $this->tranceStorage = $trance_storage;
     $this->tranceTypeStorage = $trance_type_storage;
     $this->connection = $connection;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity.manager');
+    $entity_type_manager = $container->get('entity_type.manager');
     return new static(
-      $entity_manager->getStorage('trance'),
-      $entity_manager->getStorage('trance_type'),
-      $container->get('database')
+      $entity_type_manager->getStorage('trance'),
+      $entity_type_manager->getStorage('trance_type'),
+      $container->get('database'),
+      $container->get('date.formatter')
     );
   }
 
@@ -83,7 +95,7 @@ class TranceRevisionDeleteForm extends ConfirmFormBase {
    */
   public function getQuestion() {
     return t('Are you sure you want to delete the revision from %revision-date?', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%revision-date' => $this->dateFormatter->format($this->revision->getRevisionCreationTime()),
     ]);
   }
 
@@ -128,12 +140,14 @@ class TranceRevisionDeleteForm extends ConfirmFormBase {
       '%title' => $this->revision->label(),
       '%revision' => $this->revision->getRevisionId(),
     ]);
-    drupal_set_message(t('Revision from %revision-date of @type @bundle %title has been deleted.', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
-      '@type' => $entity_type,
-      '@bundle' => $trance_bundle,
-      '%title' => $this->revision->label(),
-    ]));
+    $this->messenger()->addMessage(
+      t('Revision from %revision-date of @type @bundle %title has been deleted.', [
+        '%revision-date' => $this->dateFormatter->format($this->revision->getRevisionCreationTime()),
+        '@type' => $entity_type,
+        '@bundle' => $trance_bundle,
+        '%title' => $this->revision->label(),
+      ])
+    );
     $form_state->setRedirect(
       'entity.' . $entity_type . '.canonical', [
         $entity_type => $this->revision->id(),
