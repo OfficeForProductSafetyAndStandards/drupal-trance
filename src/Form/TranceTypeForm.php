@@ -93,7 +93,7 @@ class TranceTypeForm extends EntityForm {
         );
     }
 
-    $this->entityManager->clearCachedFieldDefinitions();
+    \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
     $form_state->setRedirectUrl($trance_type->toUrl('collection'));
   }
 

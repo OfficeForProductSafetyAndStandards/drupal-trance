@@ -148,7 +148,7 @@ class TranceController extends ControllerBase implements ContainerInjectionInter
   public function revisionShow($trance_revision) {
     $entity_type = $trance_revision->id();
     $trance = $this->entityTypeManager()->getStorage($entity_type)->loadRevision($trance_revision);
-    $trance_view_controller = new TranceViewController($this->entityManager, $this->renderer);
+    $trance_view_controller = new TranceViewController($this->entityTypeManager, $this->renderer);
     $page = $trance_view_controller->view($trance);
     unset($page['trances'][$trance->id()]['#cache']);
     return $page;
