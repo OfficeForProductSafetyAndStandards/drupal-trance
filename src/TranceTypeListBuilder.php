@@ -17,7 +17,7 @@ class TranceTypeListBuilder extends ConfigEntityListBuilder {
    *   An array of entity IDs.
    */
   protected function getEntityIds() {
-    $query = $this->getStorage()->getQuery()
+    $query = $this->getStorage()->getQuery()->accessCheck()
       ->sort($this->entityType->getKey('id'));
 
     // Only add the pager if a limit is specified.

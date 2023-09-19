@@ -1,7 +1,7 @@
 name: Trance Example
 type: module
 description: 'Content entity type for demonstrating Trance module.'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: Custom
 dependencies:
   - content_translation
